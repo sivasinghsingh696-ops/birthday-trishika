@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Trishika!</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
+
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #feca57;
+            --bg-color: #ffeaa7;
+            --text-color: #2d3436;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* --- Screens --- */
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* --- Landing Page --- */
+        #landing h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: #ee5253;
+        }
+
+        /* --- Main Party Screen --- */
+        #party-screen {
+            z-index: 10;
+        }
+
+        .message-container {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            min-height: 100px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .big-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #d63031;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            display: block;
+            margin: 10px 0;
+        }
+
+        /* --- Cake Styles --- */
+        .cake-container {
+            position: relative;
+            width: 250px;
+            height: 200px;
+            margin-top: 50px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .cake-container:hover {
+            transform: scale(1.02);
+        }
+
+        .plate {
+            width: 270px;
+            height: 10px;
+            background: #dfe6e9;
+            border-radius: 10px;
+            position: absolute;
+            bottom: 0;
+            left: -10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .layer {
+            position: absolute;
+            background: #fd79a8;
+            border-radius: 10px 10px 5px 5px;
+            border-bottom: 5px solid #e84393;
+        }
+
+        .layer-bottom {
+            width: 250px;
+            height: 80px;
+            bottom: 10px;
+            left: 0;
+        }
+
+        .layer-top {
+            width: 180px;
+            height: 70px;
+            bottom: 90px;
+            left: 35px;
+            background: #fab1a0;
+            border-bottom: 5px solid #e17055;
+        }
+
+        .icing {
+            position: absolute;
+            width: 100%;
+            height: 15px;
+            background: #fff;
+            border-radius: 10px 10px 0 0;
+            top: 0;
+            opacity: 0.8;
+        }
+
+        /* Candle */
+        .candle {
+            width: 10px;
+            height: 40px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 5px, #0984e3 5px, #0984e3 10px);
+            position: absolute;
+            bottom: 160px;
+            left: 120px;
+            border-radius: 3px;
+        }
+
+        .flame {
+            width: 12px;
+            height: 25px;
+            background: #feca57;
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -25px;
+            left: -1px;
+            box-shadow: 0 0 10px #feca57, 0 0 20px #ff9f43;
+            animation: flicker 1s infinite alternate;
+        }
+
+        .knife {
+            position: absolute;
+            width: 100px;
+            height: 10px;
+            background: silver;
+            border-radius: 0 5px 5px 0;
+            top: 50%;
+            right: -120px;
+            transform: rotate(-30deg);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+
+        .handle {
+            width: 40px;
+            height: 15px;
+            background: #2d3436;
+            position: absolute;
+            left: -40px;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .knife.cutting {
+            opacity: 1;
+            right: 50px;
+            top: 80px;
+        }
+
+        .cut-text {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #636e72;
+            animation: bounce 2s infinite;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1rem;
+            color: #636e72;
+        }
+        
+        /* --- Balloons --- */
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            bottom: -100px;
+            animation: floatUp 10s linear infinite;
+            opacity: 0.8;
+            z-index: 1;
+        }
+        .balloon::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 80px;
+            background: rgba(0,0,0,0.2);
+            bottom: -80px;
+            left: 24px;
+        }
+
+        /* --- Animations --- */
+        @keyframes flicker {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="landing" class="screen">
+        <h1>A Surprise for You!</h1>
+        <p>Are you ready?</p>
+        <button class="btn" onclick="startParty()">Click to Open</button>
+    </div>
+
+    <div id="party-screen" class="screen hidden">
+        <div id="balloons-container"></div>
+        
+        <div class="message-container" id="message-box">
+            <div>Happy Birthday...</div>
+        </div>
+
+        <div class="cake-container" onclick="cutCake()">
+            <div class="plate"></div>
+            <div class="layer layer-bottom"></div>
+            <div class="layer layer-top"><div class="icing"></div></div>
+            <div class="candle">
+                <div class="flame" id="flame"></div>
+            </div>
+            <div class="knife" id="knife"><div class="handle"></div></div>
+        </div>
+        
+        <div class="cut-text" id="instruction">Tap the cake to cut it! 🎂</div>
+
+        <div class="footer">
+            Surprise by <strong>Siva Singh</strong> ❤️
+        </div>
+    </div>
+
+    <script>
+        const messages = [
+            "Hey Trishika!",
+            "Today is a very special day...",
+            "So I made this little surprise for you.",
+            "Make a wish...",
+            "And cut the cake below! 👇"
+        ];
+
+        let msgIndex = 0;
+        const msgBox = document.getElementById('message-box');
+        const audio = document.getElementById('bg-music');
+
+        // Function to start the party
+        function startParty() {
+            document.getElementById('landing').classList.add('hidden');
+            document.getElementById('party-screen').classList.remove('hidden');
+            document.getElementById('party-screen').style.opacity = '1';
+            
+            // Try to play music (might be blocked by some browsers depending on settings, but click usually allows it)
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log("Audio play failed: ", e));
+
+            // Start floating balloons
+            createBalloons();
+
+            // Start message sequence
+            showNextMessage();
+        }
+
+        // Message Sequence Logic
+        function showNextMessage() {
+            if (msgIndex < messages.length) {
+                msgBox.style.opacity = 0;
+                setTimeout(() => {
+                    msgBox.innerHTML = messages[msgIndex];
+                    msgBox.style.opacity = 1;
+                    msgIndex++;
+                    setTimeout(showNextMessage, 2500); // Change message every 2.5 seconds
+                }, 500);
+            } else {
+                // Final state before cutting cake
+                msgBox.innerHTML = `<span class='big-name'>Happy Birthday Trishika!</span>`;
+                msgBox.style.opacity = 1;
+            }
+        }
+
+        // Cake Cutting Logic
+        let isCut = false;
+        function cutCake() {
+            if (isCut) return;
+            isCut = true;
+
+            const knife = document.getElementById('knife');
+            const flame = document.getElementById('flame');
+            const instruction = document.getElementById('instruction');
+
+            // 1. Animate Knife
+            knife.classList.add('cutting');
+
+            // 2. Blow out candle after a delay
+            setTimeout(() => {
+                flame.style.display = 'none';
+                instruction.innerText = "YAY! 🥳";
+                
+                // 3. Trigger Confetti
+                launchConfetti();
+                
+                // 4. Final Message Update
+                msgBox.innerHTML = `
+                    <span class='big-name'>Happy Birthday Trishika!</span>
+                    <p style="font-size: 1rem; margin-top: 10px;">
+                        May your year be full of magic, laughter, and success.<br>
+                        - Best wishes from <b>Siva Singh</b>
+                    </p>
+                `;
+
+                // 5. Reset knife slightly
+                setTimeout(() => {
+                    knife.style.opacity = 0;
+                }, 1000);
+
+            }, 800);
+        }
+
+        // Confetti Effect
+        function launchConfetti() {
+            var duration = 5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                // since particles fall down, start a bit higher than random
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        // Background Balloons
+        function createBalloons() {
+            const colors = ['#ff7675', '#74b9ff', '#a29bfe', '#fd79a8', '#ffeaa7'];
+            const container = document.getElementById('balloons-container');
+
+            setInterval(() => {
+                const b = document.createElement('div');
+                b.className = 'balloon';
+                b.style.left = Math.random() * 100 + 'vw';
+                b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                b.style.animationDuration = (Math.random() * 5 + 5) + 's'; // 5 to 10s
+                container.appendChild(b);
+
+                // Remove balloon after it flies off screen
+                setTimeout(() => {
+                    b.remove();
+                }, 10000);
+            }, 500);
+        }
+
+    </script>
+</body>
+  </html>
