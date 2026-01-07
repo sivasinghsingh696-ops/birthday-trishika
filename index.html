@@ -1,428 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Trishika!</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
+<meta charset="UTF-8">
+<title>I Love You Ritika ji 😍</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        :root {
-            --primary: #ff6b6b;
-            --secondary: #feca57;
-            --bg-color: #ffeaa7;
-            --text-color: #2d3436;
-        }
+<style>
+:root{
+--bg:#0b0e14;
+--card:#1a1f29;
+--accent:#ff4757;
+--text:#fff;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:'Segoe UI',sans-serif;
+overflow-x:hidden;
+text-align:center;
+}
 
-        /* --- Screens --- */
-        .screen {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 1s ease-in-out;
-        }
+/* ❤️ INTRO */
+#intro{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:9999;
+animation:fadeOut 4s forwards;
+}
 
-        .hidden {
-            opacity: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
+#intro h1{
+font-size:2.5em;
+color:#ff4d6d;
+animation:pulse 1s infinite;
+}
 
-        /* --- Landing Page --- */
-        #landing h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.15)}
+100%{transform:scale(1)}
+}
 
-        .btn {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-            transition: transform 0.2s, background 0.2s;
-        }
+@keyframes fadeOut{
+0%,70%{opacity:1}
+100%{opacity:0;visibility:hidden}
+}
 
-        .btn:hover {
-            transform: scale(1.05);
-            background: #ee5253;
-        }
+/* 🌧️ RAIN */
+.rain{
+position:fixed;
+top:-10px;
+width:2px;
+height:12px;
+background:#5dade2;
+animation:fall linear infinite;
+opacity:.6;
+}
 
-        /* --- Main Party Screen --- */
-        #party-screen {
-            z-index: 10;
-        }
+@keyframes fall{
+to{transform:translateY(110vh)}
+}
 
-        .message-container {
-            font-size: 1.5rem;
-            color: var(--text-color);
-            min-height: 100px;
-            margin-bottom: 30px;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
+/* ⚡ LIGHT */
+.light{
+position:fixed;
+inset:0;
+background:white;
+opacity:0;
+pointer-events:none;
+transition:.1s;
+}
 
-        .big-name {
-            font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
-            color: #d63031;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            display: block;
-            margin: 10px 0;
-        }
+/* ❤️ HEARTS */
+.heart{
+position:fixed;
+font-size:22px;
+animation:float 2.5s linear forwards;
+}
 
-        /* --- Cake Styles --- */
-        .cake-container {
-            position: relative;
-            width: 250px;
-            height: 200px;
-            margin-top: 50px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
+@keyframes float{
+to{transform:translateY(-250px) scale(1.5);opacity:0}
+}
 
-        .cake-container:hover {
-            transform: scale(1.02);
-        }
+/* HEADER */
+header{padding:20px}
+h2{color:var(--accent)}
+.made{opacity:.7}
 
-        .plate {
-            width: 270px;
-            height: 10px;
-            background: #dfe6e9;
-            border-radius: 10px;
-            position: absolute;
-            bottom: 0;
-            left: -10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+/* INSTAGRAM */
+.insta{
+margin-top:10px;
+font-size:15px;
+}
+.insta a{
+color:#ff69b4;
+text-decoration:none;
+font-weight:bold;
+}
+.insta a:hover{text-decoration:underline}
 
-        .layer {
-            position: absolute;
-            background: #fd79a8;
-            border-radius: 10px 10px 5px 5px;
-            border-bottom: 5px solid #e84393;
-        }
+/* VIDEO CARDS */
+.videos{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:15px;
+padding:15px;
+max-width:900px;
+margin:auto;
+}
 
-        .layer-bottom {
-            width: 250px;
-            height: 80px;
-            bottom: 10px;
-            left: 0;
-        }
+.vcard{
+background:var(--card);
+border-radius:20px;
+padding:10px;
+}
 
-        .layer-top {
-            width: 180px;
-            height: 70px;
-            bottom: 90px;
-            left: 35px;
-            background: #fab1a0;
-            border-bottom: 5px solid #e17055;
-        }
+.vcard video{
+width:100%;
+border-radius:15px;
+display:none;
+}
 
-        .icing {
-            position: absolute;
-            width: 100%;
-            height: 15px;
-            background: #fff;
-            border-radius: 10px 10px 0 0;
-            top: 0;
-            opacity: 0.8;
-        }
+.play{
+font-size:40px;
+cursor:pointer;
+}
 
-        /* Candle */
-        .candle {
-            width: 10px;
-            height: 40px;
-            background: repeating-linear-gradient(45deg, #fff, #fff 5px, #0984e3 5px, #0984e3 10px);
-            position: absolute;
-            bottom: 160px;
-            left: 120px;
-            border-radius: 3px;
-        }
+/* PHOTO */
+.photo-box img{
+width:90%;
+max-width:300px;
+border-radius:20px;
+border:3px solid var(--accent);
+}
 
-        .flame {
-            width: 12px;
-            height: 25px;
-            background: #feca57;
-            border-radius: 50% 50% 20% 20%;
-            position: absolute;
-            top: -25px;
-            left: -1px;
-            box-shadow: 0 0 10px #feca57, 0 0 20px #ff9f43;
-            animation: flicker 1s infinite alternate;
-        }
+/* SHAYARI */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:15px;
+max-width:900px;
+margin:20px auto;
+padding:10px;
+}
 
-        .knife {
-            position: absolute;
-            width: 100px;
-            height: 10px;
-            background: silver;
-            border-radius: 0 5px 5px 0;
-            top: 50%;
-            right: -120px;
-            transform: rotate(-30deg);
-            opacity: 0;
-            transition: all 0.5s;
-        }
+.card{
+background:var(--card);
+border-radius:15px;
+padding:15px;
+cursor:pointer;
+transition:.3s;
+}
 
-        .handle {
-            width: 40px;
-            height: 15px;
-            background: #2d3436;
-            position: absolute;
-            left: -40px;
-            border-radius: 5px 0 0 5px;
-        }
+.card:active{transform:scale(1.08)}
 
-        .knife.cutting {
-            opacity: 1;
-            right: 50px;
-            top: 80px;
-        }
+.cover{font-size:35px}
+.content{display:none;font-size:14px;font-weight:bold}
 
-        .cut-text {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #636e72;
-            animation: bounce 2s infinite;
-        }
-
-        /* --- Footer --- */
-        .footer {
-            position: absolute;
-            bottom: 20px;
-            font-size: 1rem;
-            color: #636e72;
-        }
-        
-        /* --- Balloons --- */
-        .balloon {
-            position: absolute;
-            width: 50px;
-            height: 60px;
-            background: var(--primary);
-            border-radius: 50%;
-            bottom: -100px;
-            animation: floatUp 10s linear infinite;
-            opacity: 0.8;
-            z-index: 1;
-        }
-        .balloon::before {
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 80px;
-            background: rgba(0,0,0,0.2);
-            bottom: -80px;
-            left: 24px;
-        }
-
-        /* --- Animations --- */
-        @keyframes flicker {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
-        }
-
-    </style>
+/* AUDIO */
+audio{display:none}
+</style>
 </head>
+
 <body>
 
-    <audio id="bg-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
+<!-- ❤️ INTRO -->
+<div id="intro">
+<h1>❤️ I Love You Ritika ji 😍 ❤️</h1>
+</div>
 
-    <div id="landing" class="screen">
-        <h1>A Surprise for You!</h1>
-        <p>Are you ready?</p>
-        <button class="btn" onclick="startParty()">Click to Open</button>
-    </div>
+<!-- ⚡ LIGHT -->
+<div id="light" class="light"></div>
 
-    <div id="party-screen" class="screen hidden">
-        <div id="balloons-container"></div>
-        
-        <div class="message-container" id="message-box">
-            <div>Happy Birthday...</div>
-        </div>
+<!-- 🎵 SONG -->
+<audio id="bgMusic" loop>
+<source src="newsong.mp3">
+</audio>
 
-        <div class="cake-container" onclick="cutCake()">
-            <div class="plate"></div>
-            <div class="layer layer-bottom"></div>
-            <div class="layer layer-top"><div class="icing"></div></div>
-            <div class="candle">
-                <div class="flame" id="flame"></div>
-            </div>
-            <div class="knife" id="knife"><div class="handle"></div></div>
-        </div>
-        
-        <div class="cut-text" id="instruction">Tap the cake to cut it! 🎂</div>
+<header>
+<h2>For Ritika ji 😍</h2>
 
-        <div class="footer">
-            Surprise by <strong>Siva Singh</strong> ❤️
-        </div>
-    </div>
+<div class="insta">
+📸 Instagram : 
+<a href="https://instagram.com/smss1708" target="_blank">@smss1708</a>
+</div>
 
-    <script>
-        const messages = [
-            "Hey Trishika!",
-            "Today is a very special day...",
-            "So I made this little surprise for you.",
-            "Make a wish...",
-            "And cut the cake below! 👇"
-        ];
+<p class="made">Made with ❤️ by SivaSingh</p>
+</header>
 
-        let msgIndex = 0;
-        const msgBox = document.getElementById('message-box');
-        const audio = document.getElementById('bg-music');
+<!-- 🎬 VIDEOS -->
+<div class="videos">
+<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video1.mp4" playsinline></video></div>
+<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video2.mp4" playsinline></video></div>
+<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video3.mp4" playsinline></video></div>
+<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video4.mp4" playsinline></video></div>
+</div>
 
-        // Function to start the party
-        function startParty() {
-            document.getElementById('landing').classList.add('hidden');
-            document.getElementById('party-screen').classList.remove('hidden');
-            document.getElementById('party-screen').style.opacity = '1';
-            
-            // Try to play music (might be blocked by some browsers depending on settings, but click usually allows it)
-            audio.volume = 0.5;
-            audio.play().catch(e => console.log("Audio play failed: ", e));
+<!-- 📸 PHOTO -->
+<div class="photo-box" onclick="nextPhoto()">
+<img id="photo" src="photo1.jpg">
+<p>Click Photo 📸</p>
+</div>
 
-            // Start floating balloons
-            createBalloons();
+<!-- 💌 SHAYARI -->
+<div class="grid" id="shayariGrid"></div>
 
-            // Start message sequence
-            showNextMessage();
-        }
+<script>
+/* 🌧️ RAIN */
+for(let i=0;i<120;i++){
+let r=document.createElement("div");
+r.className="rain";
+r.style.left=Math.random()*100+"vw";
+r.style.animationDuration=0.5+Math.random()+"s";
+document.body.appendChild(r);
+}
 
-        // Message Sequence Logic
-        function showNextMessage() {
-            if (msgIndex < messages.length) {
-                msgBox.style.opacity = 0;
-                setTimeout(() => {
-                    msgBox.innerHTML = messages[msgIndex];
-                    msgBox.style.opacity = 1;
-                    msgIndex++;
-                    setTimeout(showNextMessage, 2500); // Change message every 2.5 seconds
-                }, 500);
-            } else {
-                // Final state before cutting cake
-                msgBox.innerHTML = `<span class='big-name'>Happy Birthday Trishika!</span>`;
-                msgBox.style.opacity = 1;
-            }
-        }
+/* ⚡ LIGHT */
+function flash(){
+let l=document.getElementById("light");
+l.style.opacity=0.9;
+setTimeout(()=>l.style.opacity=0,120);
+}
 
-        // Cake Cutting Logic
-        let isCut = false;
-        function cutCake() {
-            if (isCut) return;
-            isCut = true;
+/* ❤️ HEART BLAST */
+function heartBlast(x,y){
+for(let i=0;i<40;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=x+"px";
+h.style.top=y+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),2500);
+}
+}
 
-            const knife = document.getElementById('knife');
-            const flame = document.getElementById('flame');
-            const instruction = document.getElementById('instruction');
+/* 🎬 VIDEO */
+function toggleVideo(el){
+const card=el.parentElement;
+const video=card.querySelector("video");
 
-            // 1. Animate Knife
-            knife.classList.add('cutting');
+document.querySelectorAll(".vcard video").forEach(v=>{
+if(v!==video){
+v.pause();v.currentTime=0;
+v.style.display="none";
+v.parentElement.querySelector(".play").style.display="block";
+}
+});
 
-            // 2. Blow out candle after a delay
-            setTimeout(() => {
-                flame.style.display = 'none';
-                instruction.innerText = "YAY! 🥳";
-                
-                // 3. Trigger Confetti
-                launchConfetti();
-                
-                // 4. Final Message Update
-                msgBox.innerHTML = `
-                    <span class='big-name'>Happy Birthday Trishika!</span>
-                    <p style="font-size: 1rem; margin-top: 10px;">
-                        May your year be full of magic, laughter, and success.<br>
-                        - Best wishes from <b>Siva Singh</b>
-                    </p>
-                `;
+el.style.display="none";
+video.style.display="block";
+video.play();
+}
 
-                // 5. Reset knife slightly
-                setTimeout(() => {
-                    knife.style.opacity = 0;
-                }, 1000);
+/* 📸 PHOTO */
+let p=1;
+function nextPhoto(){
+p++; if(p>10) p=1;
+document.getElementById("photo").src=`photo${p}.jpg`;
+}
 
-            }, 800);
-        }
+/* 🎵 MUSIC */
+const music=document.getElementById("bgMusic");
 
-        // Confetti Effect
-        function launchConfetti() {
-            var duration = 5 * 1000;
-            var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+/* 💌 SHAYARI */
+const shayaris=[
+"Zindagi ke safar mein tera sath chahiye, tanhaiyon mein tera hath chahiye.",
+"Phoolon ki mehak bhi fiki lagti hai, jab Ritika ji 😍 teri muskurahat dikhti hai.",
+"Khuda kare har khushi teri ho, har kadam pe kamyabi teri ho.",
+"Dosti ka rishta sabse pyara hai, tu hi is dil ka sitara hai.",
+"Chand se pyari chandni, chandni se pyari raat, raat se pyari zindagi, aur zindagi se pyari teri dosti.",
+"Aapki dosti ne humein jeena sikhaya, har mod pe saath nibhaya.",
+"Khuda se mangi thi ek dua, mil gayi tum jaisi dost wafa.",
+"Dil se likhi hai baat, hamesha rahe Ritika ji 😍 tera saath.",
+"Teri dosti ka nasha hai, har dard ki yahi dawa hai.",
+"Suraj ki pehli kiran ho tum, mere liye sabse khas ho tum.",
+"Bas tum haste raho, yahi dua hai meri har pal.",
+"Duniya ki har khushi Ritika ji 😍 ke naam ho, tera har din ek naya paigam ho.",
+"Dil ke rishte kabhi toote nahi karte, sachi dost kabhi rootha nahi karte.",
+"Aapki muskurahat sabse haseen hai, aap jaisa koi aur nahi hai.",
+"Zindagi mein aaye ho aise, jaise koi dua qubool hui ho.",
+"Khushboo ki tarah mehko tum sada, dosti ka yahi hai asli maza.",
+"Har pal tumhein yaad karte hain, tumhari dosti pe naaz karte hain.",
+"Ritika ji 😍, tum meri dosti ka maan ho, is dil ki tum hi shaan ho.",
+"Rabb se bas yahi maangte hain, ki tum hamesha salamat raho.",
+"Dosti ka safar yunhi chalta rahe, waqt badle par hum na badlein.",
+"SivaSingh ki taraf se dosti ka uphar ❤️"
+];
 
-            var interval = setInterval(function() {
-                var timeLeft = animationEnd - Date.now();
+const grid=document.getElementById("shayariGrid");
+const emojis=["🌟","✨","💎","🌸","🦋","🎈"];
 
-                if (timeLeft <= 0) {
-                    return clearInterval(interval);
-                }
+shayaris.forEach(t=>{
+let c=document.createElement("div");
+c.className="card";
+c.innerHTML=`<div class="cover">${emojis[Math.floor(Math.random()*emojis.length)]}</div>
+<div class="content">${t}</div>`;
+c.onclick=e=>{
+c.querySelector(".cover").style.display="none";
+c.querySelector(".content").style.display="block";
+music.play();
+flash();
+heartBlast(e.clientX,e.clientY);
+};
+grid.appendChild(c);
+});
+</script>
 
-                var particleCount = 50 * (timeLeft / duration);
-                // since particles fall down, start a bit higher than random
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-            }, 250);
-        }
-
-        function randomInRange(min, max) {
-            return Math.random() * (max - min) + min;
-        }
-
-        // Background Balloons
-        function createBalloons() {
-            const colors = ['#ff7675', '#74b9ff', '#a29bfe', '#fd79a8', '#ffeaa7'];
-            const container = document.getElementById('balloons-container');
-
-            setInterval(() => {
-                const b = document.createElement('div');
-                b.className = 'balloon';
-                b.style.left = Math.random() * 100 + 'vw';
-                b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                b.style.animationDuration = (Math.random() * 5 + 5) + 's'; // 5 to 10s
-                container.appendChild(b);
-
-                // Remove balloon after it flies off screen
-                setTimeout(() => {
-                    b.remove();
-                }, 10000);
-            }, 500);
-        }
-
-    </script>
 </body>
-  </html>
+</html>
