@@ -2,522 +2,805 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Trishika | Luxury Celebration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Yuvi & Punnu Jaan - A Love Story</title>
     <style>
-        :root {
-            --gold: #d4af37;
-            --dark-gold: #996515;
-            --bg-black: #0a0a0a;
-            --soft-red: #ff4d4d;
-            --glass: rgba(255, 255, 255, 0.1);
+        /* ------------------------------------------------
+           CSS RESET & BASE STYLES
+           ------------------------------------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Playfair Display', serif; }
-        body { background: var(--bg-black); color: white; overflow-x: hidden; scroll-behavior: smooth; }
-
-        /* Helpers */
-        .hidden { display: none !important; }
-        .flex-center { display: flex; justify-content: center; align-items: center; flex-direction: column; }
-
-        /* Section Styling */
-        section { min-height: 100vh; width: 100%; position: relative; overflow: hidden; padding: 40px 20px; }
-
-        /* Intro Screen */
-        #intro-screen {
-            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
-            z-index: 1000;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            transition: opacity 1s ease;
+        body {
+            background-color: #0b0e14; /* Deep luxury dark */
+            color: #fff;
+            font-family: 'Times New Roman', serif; /* Classic Royal feel */
+            overflow-x: hidden;
+            width: 100vw;
+            min-height: 100vh;
         }
-
-        .heart-3d-container {
-            perspective: 1000px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .heart-3d {
-            width: 150px;
-            height: 150px;
-            background-color: var(--soft-red);
-            position: relative;
-            transform-style: preserve-3d;
-            animation: beat 1.2s infinite ease-in-out, rotate3d 10s infinite linear;
-            box-shadow: 0 0 50px var(--soft-red);
-        }
-
-        .heart-3d::before, .heart-3d::after {
-            content: '';
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background-color: inherit;
-            border-radius: 50%;
-        }
-
-        .heart-3d::before { top: -75px; left: 0; }
-        .heart-3d::after { left: -75px; top: 0; }
-        .heart-3d-inner { transform: rotate(-45deg); width: 150px; height: 150px; background: inherit; }
-
-        @keyframes beat {
-            0%, 100% { transform: scale(1) rotate(-45deg); }
-            50% { transform: scale(1.1) rotate(-45deg); filter: brightness(1.2); }
-        }
-
-        @keyframes rotate3d {
-            from { transform: rotateY(0deg) rotateX(0deg) rotate(-45deg); }
-            to { transform: rotateY(360deg) rotateX(360deg) rotate(-45deg); }
-        }
-
-        /* Particles */
-        canvas#particles { position: absolute; top: 0; left: 0; pointer-events: none; }
 
         /* Typography */
-        .gold-text {
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .welcome-msg { font-size: 1.5rem; margin-top: 30px; opacity: 0; text-align: center; line-height: 1.6; }
-        .btn-luxury {
-            margin-top: 30px;
-            padding: 15px 40px;
-            background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            text-transform: uppercase;
+        h1, h2, h3 {
+            font-weight: 400;
             letter-spacing: 2px;
-            cursor: pointer;
-            transition: 0.3s;
-            border-radius: 50px;
-            font-weight: bold;
-        }
-        .btn-luxury:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold); }
-
-        /* 1. Grand Name Reveal */
-        .crown { font-size: 4rem; margin-bottom: 10px; animation: float 3s infinite ease-in-out; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-
-        /* 2. Typewriter */
-        #typewriter-box { height: 100px; font-style: italic; color: #eee; font-size: 1.2rem; max-width: 80%; text-align: center; }
-
-        /* 3. Video Cards */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1200px;
-            padding: 20px;
-        }
-        .video-card {
-            background: var(--glass);
-            border: 1px solid var(--gold);
-            border-radius: 15px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            height: 400px;
-        }
-        video { width: 100%; height: 100%; object-fit: cover; }
-
-        /* 4. Photo Palace */
-        #photo-palace-img {
-            width: 300px;
-            height: 400px;
-            object-fit: cover;
-            border: 8px solid white;
-            outline: 2px solid var(--gold);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            transition: 0.5s;
-            cursor: pointer;
+            text-transform: uppercase;
         }
 
-        /* 5. Shayari Cards */
-        .card-container { display: flex; overflow-x: auto; gap: 20px; width: 100%; padding: 20px; scroll-snap-type: x mandatory; }
-        .wish-card {
-            min-width: 300px;
-            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-            padding: 40px 20px;
-            border-radius: 20px;
-            border-bottom: 4px solid var(--gold);
-            text-align: center;
-            scroll-snap-align: center;
+        .text-gold {
+            color: #d4af37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
-        /* 6. Cake Section */
-        .cake-container { position: relative; margin: 50px 0; }
-        .cake { width: 200px; height: 120px; background: #4d2d18; border-radius: 10px 10px 0 0; position: relative; }
-        .cake::before { content: ''; position: absolute; top: -10px; left: 0; width: 100%; height: 40px; background: #f0e68c; border-radius: 50%; }
-        .candle { width: 10px; height: 40px; background: orange; position: absolute; top: -45px; left: 95px; }
-        .flame { width: 15px; height: 25px; background: yellow; border-radius: 50%; position: absolute; top: -25px; left: -2.5px; box-shadow: 0 0 10px orange; }
-        .slice { position: absolute; width: 50px; height: 50px; background: #4d2d18; right: -60px; top: 20px; display: none; transform: rotate(20deg); border: 2px solid var(--gold); }
-
-        /* 7. Gift Section */
-        .gift-box { width: 100px; height: 100px; background: var(--gold); position: relative; cursor: pointer; margin: 20px; display: inline-block; }
-        .gift-box::after { content: '🎁'; font-size: 3rem; position: absolute; top: 20px; left: 20px; }
-        .gift-content { display: none; padding: 10px; background: white; color: black; border-radius: 5px; margin-top: 10px; }
-
-        /* 8. Fake Chat */
-        .chat-container {
-            width: 320px;
-            background: #ededed;
-            border-radius: 10px;
-            padding: 10px;
-            color: black;
-            font-family: sans-serif;
+        .text-rose {
+            color: #ff007f;
+            text-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
         }
-        .bubble { padding: 8px 12px; margin: 5px; border-radius: 10px; max-width: 80%; font-size: 0.9rem; }
-        .sent { background: #dcf8c6; align-self: flex-end; margin-left: auto; }
-        .received { background: white; align-self: flex-start; }
-        .status { font-size: 0.7rem; color: gray; text-align: right; }
 
-        /* 9. Party Mode Overlay */
-        #party-overlay {
+        /* ------------------------------------------------
+           FULLSCREEN CANVAS & INTRO
+           ------------------------------------------------ */
+        #canvas-layer {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            display: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
             pointer-events: none;
         }
 
-        /* 11. Instagram */
-        .insta-footer { font-size: 1.2rem; color: var(--gold); margin: 40px 0; }
-        .insta-link { color: white; text-decoration: none; display: block; margin: 10px 0; }
+        #intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            background: radial-gradient(circle at center, #1a0b14 0%, #0b0e14 100%);
+            transition: opacity 1.5s ease;
+        }
 
-        /* 12. Final Goodbye */
-        #goodbye-screen { background: black; z-index: 3000; position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; }
+        /* 3D HEART */
+        .heart-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite, pulse 1.5s infinite;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            z-index: 101;
+        }
+
+        .heart {
+            background-color: #ff0040;
+            display: inline-block;
+            height: 80px;
+            margin: 0 10px;
+            position: relative;
+            transform: rotate(-45deg);
+            width: 80px;
+            box-shadow: 0 0 40px #ff0040;
+            transition: all 0.5s ease;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            background-color: #ff0040;
+            border-radius: 50%;
+            height: 80px;
+            position: absolute;
+            width: 80px;
+            box-shadow: 0 0 20px #ff0040;
+        }
+
+        .heart:before {
+            top: -40px;
+            left: 0;
+        }
+
+        .heart:after {
+            left: 40px;
+            top: 0;
+        }
+
+        .tap-hint {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            width: 200px;
+            text-align: center;
+            animation: fadeInOut 2s infinite;
+            font-family: sans-serif;
+            letter-spacing: 1px;
+        }
+
+        /* PROPOSAL MODAL */
+        #proposal-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 14, 20, 0.95);
+            z-index: 102;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .proposal-text {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: 1px solid #d4af37;
+            background: transparent;
+            color: #d4af37;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, #d4af37, #b8860b);
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-no {
+            border-color: #555;
+            color: #777;
+        }
+
+        /* ------------------------------------------------
+           MAIN WEBSITE CONTENT
+           ------------------------------------------------ */
+        #main-site {
+            display: none;
+            opacity: 0;
+            transition: opacity 2s ease;
+            padding-bottom: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        section {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        /* SHAYARI SECTION */
+        #shayari-section {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .shayari-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-family: serif;
+            color: #d4af37;
+        }
+
+        .shayari-container {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Fixed height to prevent jumps */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .shayari-text {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: #fff;
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            font-style: italic;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .shayari-bg-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15rem;
+            color: rgba(255, 0, 80, 0.05);
+            z-index: -1;
+            animation: pulse 3s infinite;
+        }
+
+        /* VIDEO SECTION */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .video-card {
+            background: #151922;
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .video-overlay::after {
+            content: "▶";
+            font-size: 3rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* PHOTO SECTION */
+        .photo-frame {
+            width: 100%;
+            max-width: 500px;
+            height: 500px; /* Square aspect */
+            margin: 0 auto;
+            border: 2px solid #d4af37;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        #memory-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        .photo-caption {
+            margin-top: 15px;
+            font-style: italic;
+            color: #aaa;
+        }
+
+        /* CHAT SECTION */
+        .chat-box {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: left;
+            margin: 40px auto;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .chat-bubble {
+            background: #25d366; /* WhatsApp Greenish */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 15px 15px 0 15px;
+            display: inline-block;
+            float: right;
+            margin-bottom: 10px;
+            font-family: sans-serif;
+        }
+
+        .seen-status {
+            clear: both;
+            text-align: right;
+            font-size: 0.8rem;
+            color: #34b7f1; /* Blue ticks */
+            font-family: sans-serif;
+        }
+
+        /* SOCIAL & FOOTER */
+        .instagram-link {
+            display: block;
+            font-size: 1.2rem;
+            color: #fff;
+            text-decoration: none;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 100%;
+        }
+
+        #final-screen {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to top, #000, #1a0b14);
+        }
+
+        /* ------------------------------------------------
+           ANIMATIONS
+           ------------------------------------------------ */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(10deg); }
+            100% { transform: translateY(0px) rotateY(0deg); }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        .shake-anim {
+            animation: shake 0.5s;
+        }
+
     </style>
 </head>
 <body>
 
-    <audio id="bg-music" loop src="newsong.mp3"></audio>
-    <audio id="broken-sfx" src="broken.mp3"></audio>
+    <audio id="bg-music" loop>
+        <source src="love.mp3" type="audio/mp3">
+    </audio>
+    <audio id="shayari-music">
+        <source src="broken.mp3" type="audio/mp3">
+    </audio>
 
-    <canvas id="particles"></canvas>
+    <canvas id="canvas-layer"></canvas>
 
-    <section id="intro-screen" class="flex-center">
-        <div class="heart-3d-container" onclick="explodeHeart()">
-            <div class="heart-3d">
-                <div class="heart-3d-inner"></div>
-            </div>
+    <div id="intro-screen">
+        <div class="heart-container" id="main-heart">
+            <div class="heart"></div>
+            <div class="tap-hint">Tap the Heart</div>
         </div>
-        <div id="welcome-text" class="welcome-msg">
-            <h1 class="gold-text">Trishika 💖</h1>
-            <p>Welcome to SivaSingh’s world</p>
-            <p>Today is not just a birthday...</p>
-            <p>It’s a celebration of YOU ✨</p>
-            <button class="btn-luxury" onclick="startExperience()">Start the Celebration 🎉</button>
-        </div>
-    </section>
-
-    <div id="main-content" class="hidden">
-        
-        <section class="flex-center">
-            <div class="crown">👑</div>
-            <h1 class="gold-text" style="font-size: 3.5rem;">HAPPY BIRTHDAY</h1>
-            <h1 class="gold-text" style="font-size: 4.5rem;">TRISHIKA</h1>
-            <p style="letter-spacing: 5px; margin-top: 10px;">MY BESTIE 💖</p>
-        </section>
-
-        <section class="flex-center" style="background: rgba(255,255,255,0.02);">
-            <div id="typewriter-box"></div>
-        </section>
-
-        <section class="flex-center">
-            <h2 class="gold-text" style="margin-bottom: 30px;">Cinematic Memories</h2>
-            <div class="video-grid">
-                <div class="video-card"><video class="bday-vid" src="video1.mp4" loop></video></div>
-                <div class="video-card"><video class="bday-vid" src="video2.mp4" loop></video></div>
-                <div class="video-card"><video class="bday-vid" src="video3.mp4" loop></video></div>
-                <div class="video-card"><video class="bday-vid" src="video4.mp4" loop></video></div>
-            </div>
-        </section>
-
-        <section class="flex-center">
-            <h2 class="gold-text" style="margin-bottom: 30px;">Memory Palace</h2>
-            <img id="photo-palace-img" src="photo1.jpg" onclick="nextPhoto()" alt="Memory">
-            <p style="margin-top: 20px; color: var(--gold);">Tap photo to relive memories</p>
-        </section>
-
-        <section class="flex-center">
-            <h2 class="gold-text" style="margin-bottom: 30px;">From the Heart</h2>
-            <div class="card-container">
-                <div class="wish-card" onclick="playBrokenSfx(this)">
-                    <h3>To My Soul Sister 🥀</h3>
-                    <p>In the garden of friendship, you are the most beautiful rose. Happy Birthday Trishu!</p>
-                </div>
-                <div class="wish-card" onclick="playBrokenSfx(this)">
-                    <h3>Humesha Saath ✨</h3>
-                    <p>Duniya badal jaye, par humari dosti kabhi nahi badlegi. Tu hai toh sab sahi hai.</p>
-                </div>
-                <div class="wish-card" onclick="playBrokenSfx(this)">
-                    <h3>The One & Only 💎</h3>
-                    <p>You’re not just a bestie, you’re the person I can be my true self with. Stay blessed!</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="flex-center">
-            <h2 class="gold-text">Make a Wish</h2>
-            <div class="cake-container">
-                <div class="candle" id="candle">
-                    <div class="flame" id="flame"></div>
-                </div>
-                <div class="cake"></div>
-                <div class="slice" id="cake-slice"></div>
-            </div>
-            <button class="btn-luxury" id="blow-btn" onclick="blowCandle()">Blow Candles 🎂</button>
-        </section>
-
-        <section class="flex-center">
-            <h2 class="gold-text">Surprises for You</h2>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-                <div class="gift-box" onclick="openGift(this, 'You are the best human I know! 💖')"></div>
-                <div class="gift-box" onclick="openGift(this, 'Always keep smiling, it suits you! ✨')"></div>
-                <div class="gift-box" onclick="openGift(this, 'May all your dreams come true this year! 💎')"></div>
-            </div>
-        </section>
-
-        <section class="flex-center">
-            <div class="chat-container">
-                <div style="font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">Bestie 💖 <span style="float:right; font-weight: normal; font-size: 0.7rem; color: green;">Online</span></div>
-                <div class="bubble sent">Happy Birthday bestie 💖</div>
-                <div class="status">Seen ✔✔</div>
-                <div class="bubble received">Thank you yaar 🥺💖</div>
-                <div id="typing-status" style="font-size: 0.7rem; color: gray;">Online</div>
-            </div>
-        </section>
-
-        <section class="flex-center">
-            <button class="btn-luxury" style="padding: 25px 60px; font-size: 1.5rem;" onclick="startParty()">Start Party Mode 🎉</button>
-        </section>
-
-        <section class="flex-center">
-            <div class="insta-footer">
-                <p>📸 Find us on Instagram</p>
-                <a href="#" class="insta-link">@smss1708</a>
-                <a href="#" class="insta-link">@black_its_me20</a>
-            </div>
-            <button class="btn-luxury" onclick="showGoodbye()">End Celebration ✨</button>
-        </section>
     </div>
 
-    <div id="party-overlay"></div>
+    <div id="proposal-modal">
+        <h2 class="text-rose" style="margin-bottom:20px;">Punnu Jaan 💖</h2>
+        <p class="proposal-text">
+            Welcome to Yuvi’s Heart<br>
+            I want to spend my whole life with you<br>
+            <span class="text-gold">Will you be mine forever?</span>
+        </p>
+        <div class="btn-group">
+            <button class="btn btn-yes" id="btn-yes">YES 💍</button>
+            <button class="btn btn-no" id="btn-no">NO 🙈</button>
+        </div>
+    </div>
 
-    <section id="goodbye-screen" class="flex-center">
-        <h2 class="gold-text" style="font-size: 2.5rem; line-height: 1.5;">Stay the same,<br>Stay happy,<br>Stay blessed 💖</h2>
-        <h1 class="gold-text" style="font-size: 3rem; margin-top: 40px;">Happy Birthday<br>Trishika 🎂👑</h1>
-    </section>
+    <div id="main-site">
+
+        <div style="text-align:center; padding-top: 50px;">
+            <p style="font-size:1.2rem; letter-spacing:3px;">SHE SAID YES!</p>
+            <h1 class="text-gold">Yuvi & Punnu Jaan Forever ♾️</h1>
+        </div>
+
+        <section id="shayari-section">
+            <h2 class="shayari-title">𝐌𝐞𝐫𝐢 𝐇𝐚𝐫 𝐁𝐚𝐚𝐭 𝐓𝐮𝐦𝐬𝐞</h2>
+            <div class="shayari-container" id="shayari-box">
+                <div class="shayari-bg-heart">❤</div>
+                <p id="current-shayari" class="shayari-text"></p>
+            </div>
+            <p style="font-size:0.8rem; color:#666; margin-top:20px;">(Listening to your heart...)</p>
+        </section>
+
+        <section>
+            <h2 class="text-rose">Our Moments</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <video class="memory-video" src="video1.mp4" playsinline onclick="handleVideo(this)"></video>
+                    <div class="video-overlay"></div>
+                </div>
+                <div class="video-card">
+                    <video class="memory-video" src="video2.mp4" playsinline onclick="handleVideo(this)"></video>
+                    <div class="video-overlay"></div>
+                </div>
+                <div class="video-card">
+                    <video class="memory-video" src="video3.mp4" playsinline onclick="handleVideo(this)"></video>
+                    <div class="video-overlay"></div>
+                </div>
+                <div class="video-card">
+                    <video class="memory-video" src="video4.mp4" playsinline onclick="handleVideo(this)"></video>
+                    <div class="video-overlay"></div>
+                </div>
+            </div>
+            <p style="margin-top:10px; font-size:0.9rem; color:#aaa;">Tap video to play</p>
+        </section>
+
+        <section>
+            <h2 class="text-gold">Flashbacks</h2>
+            <div class="photo-frame" id="photo-container">
+                <img id="memory-photo" src="photo1.jpg" alt="Memory">
+            </div>
+            <p class="photo-caption">Tap photo to see more... <span id="photo-counter">1/10</span></p>
+        </section>
+
+        <section>
+            <h2 class="text-rose">My Feelings</h2>
+            <div class="chat-box">
+                <div class="chat-bubble">
+                    You: Punnu Jaan, tum meri har khushi ho 💖
+                </div>
+                <div class="seen-status">
+                    Seen ✔✔<br>
+                    <span style="color:#888; font-size:0.7rem;">Last seen: Just now</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3>Connect With Us</h3>
+            <div style="margin-top:20px; max-width:300px; margin-left:auto; margin-right:auto;">
+                <div class="instagram-link">📸 Instagram: @smss1708</div>
+                <div class="instagram-link">📸 Instagram: @black_its_me20</div>
+            </div>
+        </section>
+
+        <section id="final-screen">
+            <h1 class="text-gold" style="font-size:2rem; margin-bottom:20px;">Meri har subah tum ho…</h1>
+            <h2 style="margin-bottom:30px;">Meri har shaam tum ho…</h2>
+            <p class="text-rose" style="font-size:1.5rem;">Punnu Jaan, forever Yuvi ke saath 💖</p>
+        </section>
+
+    </div>
 
     <script>
-        const canvas = document.getElementById('particles');
+        // ==========================================
+        // CONFIGURATION & DATA
+        // ==========================================
+        const shayaris = [
+            "Mujhe pasand ho tum,<br>mujhse apni har baat bataya karo na,",
+            "Main to jatata hoon haq apna tumpe,<br>tum bhi thoda sa jataya karo na.",
+            "Main maan lunga har baat tumhari,<br>tum bas hukm karke bataya karo na,",
+            "Koi pooche kaun hai ye ladka,<br>to mujhe apna<br>aur khud ko mera mehboob bataya karo na.",
+            "Mujhe pasand hai tumhari muskaan,<br>tum hamesha yun hi muskuraya karo na,",
+            "Tum bahut khoobsurat ho,<br>phir bhi thoda sa singaar lagaya karo na.",
+            "Main din-raat tumhare baare mein sochta hoon,<br>kya tum bhi sochti ho—<br>sach batao na.",
+            "Tumhari khoobsurti ki kya tareef karoon,<br>sabko khud se thoda kam bataya karo na.",
+            "Tumhare aankho me yu dub jata hu har baar,<br>Mera Hath Pakad kar nikala karo na.",
+            "Mujhe tumhara dupatta pasand hai,<br>hamesha yun hi lagaya karo na,",
+            "Tumhare kaanon ke ghumke,<br>mujhe bahut pasand hain,<br>unhe sabko na dikhaya karo na.",
+            "Tumhare hothon ki laali kyun<br>mujhe itni achhi lagti hai,<br>mujhe tum hi batao na."
+        ];
+
+        const photos = [
+            'photo1.jpg', 'photo2.jpg', 'photo3.jpg', 'photo4.jpg', 'photo5.jpg', 
+            'photo6.jpg', 'photo7.jpg', 'photo8.jpg', 'photo9.jpg', 'photo10.jpg'
+        ];
+
+        // ==========================================
+        // CANVAS ANIMATION (Rain, Stars, Petals)
+        // ==========================================
+        const canvas = document.getElementById('canvas-layer');
         const ctx = canvas.getContext('2d');
-        const bgMusic = document.getElementById('bg-music');
-        const brokenSfx = document.getElementById('broken-sfx');
-        const photoImg = document.getElementById('photo-palace-img');
-        const videos = document.querySelectorAll('.bday-vid');
-        
-        let currentPhoto = 1;
+        let width, height;
         let particles = [];
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
 
-        // Particle System
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
         class Particle {
-            constructor(x, y, color, size, speedX, speedY) {
-                this.x = x; this.y = y; this.color = color; this.size = size;
-                this.speedX = speedX; this.speedY = speedY; this.opacity = 1;
+            constructor(type) {
+                this.type = type; // 0: Rain, 1: Star, 2: Petal
+                this.init();
             }
-            draw() {
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+
+            init() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.speedY = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 1;
+                
+                if (this.type === 0) { // Rain
+                    this.y = -10;
+                    this.speedY = Math.random() * 15 + 10;
+                    this.size = Math.random() * 2 + 1;
+                } else if (this.type === 1) { // Star
+                    this.size = Math.random() * 2;
+                    this.opacity = Math.random();
+                    this.fadeSpeed = 0.01;
+                } else { // Petal
+                    this.size = Math.random() * 5 + 5;
+                    this.color = `rgba(255, ${Math.floor(Math.random()*100)}, ${Math.floor(Math.random()*100)}, 0.6)`;
+                    this.rotation = Math.random() * 360;
+                    this.rotSpeed = (Math.random() - 0.5) * 2;
+                }
             }
+
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.opacity > 0.01) this.opacity -= 0.005;
+                if (this.type === 0) { // Rain
+                    this.y += this.speedY;
+                    if (this.y > height) this.init();
+                    ctx.fillStyle = 'rgba(174, 194, 224, 0.2)';
+                    ctx.fillRect(this.x, this.y, 1, this.size * 5);
+                } 
+                else if (this.type === 1) { // Star
+                    this.opacity += this.fadeSpeed;
+                    if (this.opacity > 1 || this.opacity < 0) this.fadeSpeed *= -1;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                    ctx.fill();
+                } 
+                else { // Petal
+                    this.y += this.speedY;
+                    this.x += Math.sin(this.y * 0.01) + this.speedX;
+                    this.rotation += this.rotSpeed;
+                    
+                    if (this.y > height) this.init();
+
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation * Math.PI / 180);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(10, -10, 20, 0, 0, 20);
+                    ctx.bezierCurveTo(-20, 0, -10, -10, 0, 0);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    ctx.restore();
+                }
             }
         }
 
-        function createParticles(x, y, color, count = 20) {
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle(
-                    x, y, color, 
-                    Math.random() * 5 + 2, 
-                    (Math.random() - 0.5) * 8, 
-                    (Math.random() - 0.5) * 8
-                ));
-            }
-        }
+        // Initialize Particles
+        for(let i=0; i<50; i++) particles.push(new Particle(0)); // Rain
+        for(let i=0; i<50; i++) particles.push(new Particle(1)); // Stars
+        for(let i=0; i<15; i++) particles.push(new Particle(2)); // Petals
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, i) => {
-                p.update();
-                p.draw();
-                if (p.opacity <= 0.01) particles.splice(i, 1);
-            });
-            requestAnimationFrame(animateParticles);
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => p.update());
+            requestAnimationFrame(animateCanvas);
         }
-        animateParticles();
+        animateCanvas();
 
-        // Intro Logic
-        function explodeHeart() {
-            const heart = document.querySelector('.heart-3d-container');
-            heart.style.transform = 'scale(0)';
-            createParticles(window.innerWidth/2, window.innerHeight/2, '#ff4d4d', 100);
-            createParticles(window.innerWidth/2, window.innerHeight/2, '#d4af37', 50);
-            document.getElementById('welcome-text').style.opacity = '1';
-            document.getElementById('welcome-text').style.transition = '2s';
-        }
+        // ==========================================
+        // DOM ELEMENTS & AUDIO
+        // ==========================================
+        const bgMusic = document.getElementById('bg-music');
+        const brokenMusic = document.getElementById('shayari-music');
+        const mainHeart = document.getElementById('main-heart');
+        const introScreen = document.getElementById('intro-screen');
+        const proposalModal = document.getElementById('proposal-modal');
+        const btnYes = document.getElementById('btn-yes');
+        const btnNo = document.getElementById('btn-no');
+        const mainSite = document.getElementById('main-site');
 
-        function startExperience() {
-            bgMusic.play();
-            document.getElementById('intro-screen').style.opacity = '0';
+        // ==========================================
+        // INTERACTION FLOW
+        // ==========================================
+        
+        // 1. Heart Tap
+        mainHeart.addEventListener('click', () => {
+            // Add shake effect
+            mainHeart.classList.add('shake-anim');
+            
+            // Soft thunder flash effect via CSS background
+            document.body.style.backgroundColor = '#444';
+            setTimeout(() => { document.body.style.backgroundColor = '#0b0e14'; }, 100);
+
+            // Audio Play Attempt (First user interaction)
+            bgMusic.volume = 0.5;
+            // We wait to play bgMusic until YES is clicked or after delay, 
+            // but prompt says "Background song STARTS ONLY after first tap"
+            bgMusic.play().catch(e => console.log("Audio waiting for interaction"));
+
             setTimeout(() => {
-                document.getElementById('intro-screen').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-                startTypewriter();
+                introScreen.style.opacity = '0';
+                setTimeout(() => {
+                    introScreen.style.display = 'none';
+                    proposalModal.style.display = 'flex';
+                    // Trigger reflow
+                    void proposalModal.offsetWidth;
+                    proposalModal.style.opacity = '1';
+                }, 1000);
+            }, 600);
+        });
+
+        // 2. NO Button (Moves away or just alerts)
+        btnNo.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
+        });
+        btnNo.addEventListener('click', () => alert("Option not available for Yuvi's love! 😉"));
+
+        // 3. YES Button
+        btnYes.addEventListener('click', () => {
+            // Blast effect visualization (simple flash)
+            document.body.style.backgroundColor = '#fff';
+            setTimeout(() => { document.body.style.backgroundColor = '#0b0e14'; }, 200);
+
+            proposalModal.style.opacity = '0';
+            setTimeout(() => {
+                proposalModal.style.display = 'none';
+                mainSite.style.display = 'block';
+                // Trigger reflow
+                void mainSite.offsetWidth;
+                mainSite.style.opacity = '1';
+                
+                // Start Logic
+                startShayariLoop();
+            }, 1000);
+        });
+
+        // ==========================================
+        // SHAYARI LOGIC
+        // ==========================================
+        const shayariTextEl = document.getElementById('current-shayari');
+        const shayariBox = document.getElementById('shayari-box');
+        let shayariIndex = 0;
+
+        function startShayariLoop() {
+            showNextShayari();
+            setInterval(showNextShayari, 6000); // Change every 6 seconds
+        }
+
+        function showNextShayari() {
+            // Fade out
+            shayariTextEl.style.opacity = '0';
+            
+            setTimeout(() => {
+                // Change text
+                shayariTextEl.innerHTML = shayaris[shayariIndex];
+                // Fade in
+                shayariTextEl.style.opacity = '1';
+                
+                shayariIndex = (shayariIndex + 1) % shayaris.length;
             }, 1000);
         }
 
-        // Typewriter
-        const texts = [
-            "Tu sirf meri bestie nahi hai…",
-            "Tu meri family jaisi hai 💖",
-            "Har khushi tere naam ho…",
-            "Har smile tere chehre par ✨",
-            "Besties like you are rare…",
-            "And priceless 🥀"
-        ];
-        let textIdx = 0;
-        function startTypewriter() {
-            const box = document.getElementById('typewriter-box');
-            let charIdx = 0;
-            box.innerHTML = "";
-            let currentStr = texts[textIdx];
+        // Tap on Shayari to play broken.mp3
+        shayariBox.addEventListener('click', () => {
+            // Duck bg music
+            bgMusic.volume = 0.1;
+            brokenMusic.currentTime = 0;
+            brokenMusic.play();
             
-            function type() {
-                if (charIdx < currentStr.length) {
-                    box.innerHTML += currentStr.charAt(charIdx);
-                    charIdx++;
-                    setTimeout(type, 100);
-                } else {
-                    setTimeout(() => {
-                        textIdx = (textIdx + 1) % texts.length;
-                        startTypewriter();
-                    }, 2000);
-                }
-            }
-            type();
-        }
-
-        // Video Control
-        videos.forEach(v => {
-            v.addEventListener('play', () => {
-                bgMusic.pause();
-                videos.forEach(other => { if (other !== v) other.pause(); });
-            });
-            v.addEventListener('pause', () => {
-                let anyPlaying = Array.from(videos).some(vid => !vid.paused);
-                if (!anyPlaying) bgMusic.play();
-            });
-            v.parentElement.onclick = () => v.paused ? v.play() : v.pause();
+            brokenMusic.onended = () => {
+                bgMusic.volume = 0.5;
+            };
         });
 
-        // Photo Gallery
-        function nextPhoto() {
-            currentPhoto = (currentPhoto % 10) + 1;
-            photoImg.style.opacity = '0';
-            setTimeout(() => {
-                photoImg.src = `photo${currentPhoto}.jpg`;
-                photoImg.style.opacity = '1';
-                createParticles(photoImg.offsetLeft + 150, photoImg.offsetTop + 200, '#d4af37', 20);
-            }, 500);
-        }
+        // ==========================================
+        // MEDIA LOGIC (VIDEO & PHOTO)
+        // ==========================================
+        
+        // Videos
+        const videos = document.querySelectorAll('.memory-video');
 
-        // SFX Logic
-        function playBrokenSfx(el) {
-            brokenSfx.currentTime = 0;
-            brokenSfx.play();
-            const rect = el.getBoundingClientRect();
-            createParticles(rect.left + rect.width/2, rect.top + rect.height/2, '#ff4d4d', 30);
-        }
+        function handleVideo(clickedVideo) {
+            // If playing, pause it
+            if (!clickedVideo.paused) {
+                clickedVideo.pause();
+                bgMusic.play(); // Resume BG
+                // Show overlay
+                clickedVideo.nextElementSibling.style.opacity = '1';
+                return;
+            }
 
-        // Cake Logic
-        function blowCandle() {
-            document.getElementById('flame').classList.add('hidden');
-            document.getElementById('cake-slice').style.display = 'block';
-            document.getElementById('blow-btn').innerText = "Cake Cut! 🍰";
+            // Pause all other videos
+            videos.forEach(v => {
+                v.pause();
+                v.nextElementSibling.style.opacity = '1'; // Show overlay
+            });
+
+            // Pause BG music
             bgMusic.pause();
-            createParticles(window.innerWidth/2, window.innerHeight/2, '#fff', 50);
-            setTimeout(() => bgMusic.play(), 3000);
+
+            // Play clicked
+            clickedVideo.play();
+            clickedVideo.nextElementSibling.style.opacity = '0'; // Hide overlay
+
+            // When ended
+            clickedVideo.onended = () => {
+                bgMusic.play();
+                clickedVideo.nextElementSibling.style.opacity = '1';
+            };
         }
 
-        // Gifts
-        function openGift(el, msg) {
-            el.innerHTML = `<div class="gift-content">${msg}</div>`;
-            el.querySelector('.gift-content').style.display = 'block';
-            createParticles(el.offsetLeft + 50, el.offsetTop + 50, '#d4af37', 20);
-        }
+        // Photos
+        const photoEl = document.getElementById('memory-photo');
+        const photoCounter = document.getElementById('photo-counter');
+        const photoContainer = document.getElementById('photo-container');
+        let currentPhotoIdx = 0;
 
-        // Party Mode
-        function startParty() {
-            const overlay = document.getElementById('party-overlay');
-            overlay.style.display = 'block';
-            let interval = setInterval(() => {
-                createParticles(Math.random() * window.innerWidth, Math.random() * window.innerHeight, `hsl(${Math.random()*360}, 70%, 50%)`, 20);
-            }, 200);
-            setTimeout(() => {
-                clearInterval(interval);
-                overlay.style.display = 'none';
-            }, 10000);
-        }
-
-        // Chat
-        setTimeout(() => {
-            document.getElementById('typing-status').innerText = "Offline";
-        }, 8000);
-
-        // Goodbye
-        function showGoodbye() {
-            const screen = document.getElementById('goodbye-screen');
-            screen.style.display = 'flex';
-            screen.style.opacity = '0';
-            let op = 0;
-            let timer = setInterval(() => {
-                if (op >= 1) clearInterval(timer);
-                screen.style.opacity = op;
-                op += 0.1;
-            }, 100);
+        photoContainer.addEventListener('click', () => {
+            // Fade out
+            photoEl.style.opacity = '0';
             
-            let fadeOut = setInterval(() => {
-                if (bgMusic.volume <= 0.05) {
-                    bgMusic.pause();
-                    clearInterval(fadeOut);
-                } else {
-                    bgMusic.volume -= 0.05;
-                }
-            }, 200);
-        }
-
-        // Resize handler
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            setTimeout(() => {
+                currentPhotoIdx = (currentPhotoIdx + 1) % photos.length;
+                photoEl.src = photos[currentPhotoIdx];
+                photoCounter.innerText = `${currentPhotoIdx + 1}/${photos.length}`;
+                // Fade in
+                photoEl.style.opacity = '1';
+            }, 500);
         });
 
     </script>
 </body>
-                  </html>
+                                                                      </html>
