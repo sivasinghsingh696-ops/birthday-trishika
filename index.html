@@ -1,317 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>I Love You Ritika ji 😍</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Trishika | Luxury Celebration</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark-gold: #996515;
+            --bg-black: #0a0a0a;
+            --soft-red: #ff4d4d;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
 
-<style>
-:root{
---bg:#0b0e14;
---card:#1a1f29;
---accent:#ff4757;
---text:#fff;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Playfair Display', serif; }
+        body { background: var(--bg-black); color: white; overflow-x: hidden; scroll-behavior: smooth; }
 
-body{
-margin:0;
-background:var(--bg);
-color:var(--text);
-font-family:'Segoe UI',sans-serif;
-overflow-x:hidden;
-text-align:center;
-}
+        /* Helpers */
+        .hidden { display: none !important; }
+        .flex-center { display: flex; justify-content: center; align-items: center; flex-direction: column; }
 
-/* ❤️ INTRO */
-#intro{
-position:fixed;
-inset:0;
-background:#000;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-z-index:9999;
-animation:fadeOut 4s forwards;
-}
+        /* Section Styling */
+        section { min-height: 100vh; width: 100%; position: relative; overflow: hidden; padding: 40px 20px; }
 
-#intro h1{
-font-size:2.5em;
-color:#ff4d6d;
-animation:pulse 1s infinite;
-}
+        /* Intro Screen */
+        #intro-screen {
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+            z-index: 1000;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            transition: opacity 1s ease;
+        }
 
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.15)}
-100%{transform:scale(1)}
-}
+        .heart-3d-container {
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
 
-@keyframes fadeOut{
-0%,70%{opacity:1}
-100%{opacity:0;visibility:hidden}
-}
+        .heart-3d {
+            width: 150px;
+            height: 150px;
+            background-color: var(--soft-red);
+            position: relative;
+            transform-style: preserve-3d;
+            animation: beat 1.2s infinite ease-in-out, rotate3d 10s infinite linear;
+            box-shadow: 0 0 50px var(--soft-red);
+        }
 
-/* 🌧️ RAIN */
-.rain{
-position:fixed;
-top:-10px;
-width:2px;
-height:12px;
-background:#5dade2;
-animation:fall linear infinite;
-opacity:.6;
-}
+        .heart-3d::before, .heart-3d::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: inherit;
+            border-radius: 50%;
+        }
 
-@keyframes fall{
-to{transform:translateY(110vh)}
-}
+        .heart-3d::before { top: -75px; left: 0; }
+        .heart-3d::after { left: -75px; top: 0; }
+        .heart-3d-inner { transform: rotate(-45deg); width: 150px; height: 150px; background: inherit; }
 
-/* ⚡ LIGHT */
-.light{
-position:fixed;
-inset:0;
-background:white;
-opacity:0;
-pointer-events:none;
-transition:.1s;
-}
+        @keyframes beat {
+            0%, 100% { transform: scale(1) rotate(-45deg); }
+            50% { transform: scale(1.1) rotate(-45deg); filter: brightness(1.2); }
+        }
 
-/* ❤️ HEARTS */
-.heart{
-position:fixed;
-font-size:22px;
-animation:float 2.5s linear forwards;
-}
+        @keyframes rotate3d {
+            from { transform: rotateY(0deg) rotateX(0deg) rotate(-45deg); }
+            to { transform: rotateY(360deg) rotateX(360deg) rotate(-45deg); }
+        }
 
-@keyframes float{
-to{transform:translateY(-250px) scale(1.5);opacity:0}
-}
+        /* Particles */
+        canvas#particles { position: absolute; top: 0; left: 0; pointer-events: none; }
 
-/* HEADER */
-header{padding:20px}
-h2{color:var(--accent)}
-.made{opacity:.7}
+        /* Typography */
+        .gold-text {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-/* INSTAGRAM */
-.insta{
-margin-top:10px;
-font-size:15px;
-}
-.insta a{
-color:#ff69b4;
-text-decoration:none;
-font-weight:bold;
-}
-.insta a:hover{text-decoration:underline}
+        .welcome-msg { font-size: 1.5rem; margin-top: 30px; opacity: 0; text-align: center; line-height: 1.6; }
+        .btn-luxury {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+        .btn-luxury:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold); }
 
-/* VIDEO CARDS */
-.videos{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:15px;
-padding:15px;
-max-width:900px;
-margin:auto;
-}
+        /* 1. Grand Name Reveal */
+        .crown { font-size: 4rem; margin-bottom: 10px; animation: float 3s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-.vcard{
-background:var(--card);
-border-radius:20px;
-padding:10px;
-}
+        /* 2. Typewriter */
+        #typewriter-box { height: 100px; font-style: italic; color: #eee; font-size: 1.2rem; max-width: 80%; text-align: center; }
 
-.vcard video{
-width:100%;
-border-radius:15px;
-display:none;
-}
+        /* 3. Video Cards */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+        .video-card {
+            background: var(--glass);
+            border: 1px solid var(--gold);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            height: 400px;
+        }
+        video { width: 100%; height: 100%; object-fit: cover; }
 
-.play{
-font-size:40px;
-cursor:pointer;
-}
+        /* 4. Photo Palace */
+        #photo-palace-img {
+            width: 300px;
+            height: 400px;
+            object-fit: cover;
+            border: 8px solid white;
+            outline: 2px solid var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: 0.5s;
+            cursor: pointer;
+        }
 
-/* PHOTO */
-.photo-box img{
-width:90%;
-max-width:300px;
-border-radius:20px;
-border:3px solid var(--accent);
-}
+        /* 5. Shayari Cards */
+        .card-container { display: flex; overflow-x: auto; gap: 20px; width: 100%; padding: 20px; scroll-snap-type: x mandatory; }
+        .wish-card {
+            min-width: 300px;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 40px 20px;
+            border-radius: 20px;
+            border-bottom: 4px solid var(--gold);
+            text-align: center;
+            scroll-snap-align: center;
+        }
 
-/* SHAYARI */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:15px;
-max-width:900px;
-margin:20px auto;
-padding:10px;
-}
+        /* 6. Cake Section */
+        .cake-container { position: relative; margin: 50px 0; }
+        .cake { width: 200px; height: 120px; background: #4d2d18; border-radius: 10px 10px 0 0; position: relative; }
+        .cake::before { content: ''; position: absolute; top: -10px; left: 0; width: 100%; height: 40px; background: #f0e68c; border-radius: 50%; }
+        .candle { width: 10px; height: 40px; background: orange; position: absolute; top: -45px; left: 95px; }
+        .flame { width: 15px; height: 25px; background: yellow; border-radius: 50%; position: absolute; top: -25px; left: -2.5px; box-shadow: 0 0 10px orange; }
+        .slice { position: absolute; width: 50px; height: 50px; background: #4d2d18; right: -60px; top: 20px; display: none; transform: rotate(20deg); border: 2px solid var(--gold); }
 
-.card{
-background:var(--card);
-border-radius:15px;
-padding:15px;
-cursor:pointer;
-transition:.3s;
-}
+        /* 7. Gift Section */
+        .gift-box { width: 100px; height: 100px; background: var(--gold); position: relative; cursor: pointer; margin: 20px; display: inline-block; }
+        .gift-box::after { content: '🎁'; font-size: 3rem; position: absolute; top: 20px; left: 20px; }
+        .gift-content { display: none; padding: 10px; background: white; color: black; border-radius: 5px; margin-top: 10px; }
 
-.card:active{transform:scale(1.08)}
+        /* 8. Fake Chat */
+        .chat-container {
+            width: 320px;
+            background: #ededed;
+            border-radius: 10px;
+            padding: 10px;
+            color: black;
+            font-family: sans-serif;
+        }
+        .bubble { padding: 8px 12px; margin: 5px; border-radius: 10px; max-width: 80%; font-size: 0.9rem; }
+        .sent { background: #dcf8c6; align-self: flex-end; margin-left: auto; }
+        .received { background: white; align-self: flex-start; }
+        .status { font-size: 0.7rem; color: gray; text-align: right; }
 
-.cover{font-size:35px}
-.content{display:none;font-size:14px;font-weight:bold}
+        /* 9. Party Mode Overlay */
+        #party-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            display: none;
+            pointer-events: none;
+        }
 
-/* AUDIO */
-audio{display:none}
-</style>
+        /* 11. Instagram */
+        .insta-footer { font-size: 1.2rem; color: var(--gold); margin: 40px 0; }
+        .insta-link { color: white; text-decoration: none; display: block; margin: 10px 0; }
+
+        /* 12. Final Goodbye */
+        #goodbye-screen { background: black; z-index: 3000; position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; }
+    </style>
 </head>
-
 <body>
 
-<!-- ❤️ INTRO -->
-<div id="intro">
-<h1>❤️ I Love You Ritika ji 😍 ❤️</h1>
-</div>
+    <audio id="bg-music" loop src="newsong.mp3"></audio>
+    <audio id="broken-sfx" src="broken.mp3"></audio>
 
-<!-- ⚡ LIGHT -->
-<div id="light" class="light"></div>
+    <canvas id="particles"></canvas>
 
-<!-- 🎵 SONG -->
-<audio id="bgMusic" loop>
-<source src="newsong.mp3">
-</audio>
+    <section id="intro-screen" class="flex-center">
+        <div class="heart-3d-container" onclick="explodeHeart()">
+            <div class="heart-3d">
+                <div class="heart-3d-inner"></div>
+            </div>
+        </div>
+        <div id="welcome-text" class="welcome-msg">
+            <h1 class="gold-text">Trishika 💖</h1>
+            <p>Welcome to SivaSingh’s world</p>
+            <p>Today is not just a birthday...</p>
+            <p>It’s a celebration of YOU ✨</p>
+            <button class="btn-luxury" onclick="startExperience()">Start the Celebration 🎉</button>
+        </div>
+    </section>
 
-<header>
-<h2>For Ritika ji 😍</h2>
+    <div id="main-content" class="hidden">
+        
+        <section class="flex-center">
+            <div class="crown">👑</div>
+            <h1 class="gold-text" style="font-size: 3.5rem;">HAPPY BIRTHDAY</h1>
+            <h1 class="gold-text" style="font-size: 4.5rem;">TRISHIKA</h1>
+            <p style="letter-spacing: 5px; margin-top: 10px;">MY BESTIE 💖</p>
+        </section>
 
-<div class="insta">
-📸 Instagram : 
-<a href="https://instagram.com/smss1708" target="_blank">@smss1708</a>
-</div>
+        <section class="flex-center" style="background: rgba(255,255,255,0.02);">
+            <div id="typewriter-box"></div>
+        </section>
 
-<p class="made">Made with ❤️ by SivaSingh</p>
-</header>
+        <section class="flex-center">
+            <h2 class="gold-text" style="margin-bottom: 30px;">Cinematic Memories</h2>
+            <div class="video-grid">
+                <div class="video-card"><video class="bday-vid" src="video1.mp4" loop></video></div>
+                <div class="video-card"><video class="bday-vid" src="video2.mp4" loop></video></div>
+                <div class="video-card"><video class="bday-vid" src="video3.mp4" loop></video></div>
+                <div class="video-card"><video class="bday-vid" src="video4.mp4" loop></video></div>
+            </div>
+        </section>
 
-<!-- 🎬 VIDEOS -->
-<div class="videos">
-<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video1.mp4" playsinline></video></div>
-<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video2.mp4" playsinline></video></div>
-<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video3.mp4" playsinline></video></div>
-<div class="vcard"><div class="play" onclick="toggleVideo(this)">❤️</div><video src="video4.mp4" playsinline></video></div>
-</div>
+        <section class="flex-center">
+            <h2 class="gold-text" style="margin-bottom: 30px;">Memory Palace</h2>
+            <img id="photo-palace-img" src="photo1.jpg" onclick="nextPhoto()" alt="Memory">
+            <p style="margin-top: 20px; color: var(--gold);">Tap photo to relive memories</p>
+        </section>
 
-<!-- 📸 PHOTO -->
-<div class="photo-box" onclick="nextPhoto()">
-<img id="photo" src="photo1.jpg">
-<p>Click Photo 📸</p>
-</div>
+        <section class="flex-center">
+            <h2 class="gold-text" style="margin-bottom: 30px;">From the Heart</h2>
+            <div class="card-container">
+                <div class="wish-card" onclick="playBrokenSfx(this)">
+                    <h3>To My Soul Sister 🥀</h3>
+                    <p>In the garden of friendship, you are the most beautiful rose. Happy Birthday Trishu!</p>
+                </div>
+                <div class="wish-card" onclick="playBrokenSfx(this)">
+                    <h3>Humesha Saath ✨</h3>
+                    <p>Duniya badal jaye, par humari dosti kabhi nahi badlegi. Tu hai toh sab sahi hai.</p>
+                </div>
+                <div class="wish-card" onclick="playBrokenSfx(this)">
+                    <h3>The One & Only 💎</h3>
+                    <p>You’re not just a bestie, you’re the person I can be my true self with. Stay blessed!</p>
+                </div>
+            </div>
+        </section>
 
-<!-- 💌 SHAYARI -->
-<div class="grid" id="shayariGrid"></div>
+        <section class="flex-center">
+            <h2 class="gold-text">Make a Wish</h2>
+            <div class="cake-container">
+                <div class="candle" id="candle">
+                    <div class="flame" id="flame"></div>
+                </div>
+                <div class="cake"></div>
+                <div class="slice" id="cake-slice"></div>
+            </div>
+            <button class="btn-luxury" id="blow-btn" onclick="blowCandle()">Blow Candles 🎂</button>
+        </section>
 
-<script>
-/* 🌧️ RAIN */
-for(let i=0;i<120;i++){
-let r=document.createElement("div");
-r.className="rain";
-r.style.left=Math.random()*100+"vw";
-r.style.animationDuration=0.5+Math.random()+"s";
-document.body.appendChild(r);
-}
+        <section class="flex-center">
+            <h2 class="gold-text">Surprises for You</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                <div class="gift-box" onclick="openGift(this, 'You are the best human I know! 💖')"></div>
+                <div class="gift-box" onclick="openGift(this, 'Always keep smiling, it suits you! ✨')"></div>
+                <div class="gift-box" onclick="openGift(this, 'May all your dreams come true this year! 💎')"></div>
+            </div>
+        </section>
 
-/* ⚡ LIGHT */
-function flash(){
-let l=document.getElementById("light");
-l.style.opacity=0.9;
-setTimeout(()=>l.style.opacity=0,120);
-}
+        <section class="flex-center">
+            <div class="chat-container">
+                <div style="font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">Bestie 💖 <span style="float:right; font-weight: normal; font-size: 0.7rem; color: green;">Online</span></div>
+                <div class="bubble sent">Happy Birthday bestie 💖</div>
+                <div class="status">Seen ✔✔</div>
+                <div class="bubble received">Thank you yaar 🥺💖</div>
+                <div id="typing-status" style="font-size: 0.7rem; color: gray;">Online</div>
+            </div>
+        </section>
 
-/* ❤️ HEART BLAST */
-function heartBlast(x,y){
-for(let i=0;i<40;i++){
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="❤️";
-h.style.left=x+"px";
-h.style.top=y+"px";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),2500);
-}
-}
+        <section class="flex-center">
+            <button class="btn-luxury" style="padding: 25px 60px; font-size: 1.5rem;" onclick="startParty()">Start Party Mode 🎉</button>
+        </section>
 
-/* 🎬 VIDEO */
-function toggleVideo(el){
-const card=el.parentElement;
-const video=card.querySelector("video");
+        <section class="flex-center">
+            <div class="insta-footer">
+                <p>📸 Find us on Instagram</p>
+                <a href="#" class="insta-link">@smss1708</a>
+                <a href="#" class="insta-link">@black_its_me20</a>
+            </div>
+            <button class="btn-luxury" onclick="showGoodbye()">End Celebration ✨</button>
+        </section>
+    </div>
 
-document.querySelectorAll(".vcard video").forEach(v=>{
-if(v!==video){
-v.pause();v.currentTime=0;
-v.style.display="none";
-v.parentElement.querySelector(".play").style.display="block";
-}
-});
+    <div id="party-overlay"></div>
 
-el.style.display="none";
-video.style.display="block";
-video.play();
-}
+    <section id="goodbye-screen" class="flex-center">
+        <h2 class="gold-text" style="font-size: 2.5rem; line-height: 1.5;">Stay the same,<br>Stay happy,<br>Stay blessed 💖</h2>
+        <h1 class="gold-text" style="font-size: 3rem; margin-top: 40px;">Happy Birthday<br>Trishika 🎂👑</h1>
+    </section>
 
-/* 📸 PHOTO */
-let p=1;
-function nextPhoto(){
-p++; if(p>10) p=1;
-document.getElementById("photo").src=`photo${p}.jpg`;
-}
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        const bgMusic = document.getElementById('bg-music');
+        const brokenSfx = document.getElementById('broken-sfx');
+        const photoImg = document.getElementById('photo-palace-img');
+        const videos = document.querySelectorAll('.bday-vid');
+        
+        let currentPhoto = 1;
+        let particles = [];
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-/* 🎵 MUSIC */
-const music=document.getElementById("bgMusic");
+        // Particle System
+        class Particle {
+            constructor(x, y, color, size, speedX, speedY) {
+                this.x = x; this.y = y; this.color = color; this.size = size;
+                this.speedX = speedX; this.speedY = speedY; this.opacity = 1;
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.opacity > 0.01) this.opacity -= 0.005;
+            }
+        }
 
-/* 💌 SHAYARI */
-const shayaris=[
-"Zindagi ke safar mein tera sath chahiye, tanhaiyon mein tera hath chahiye.",
-"Phoolon ki mehak bhi fiki lagti hai, jab Ritika ji 😍 teri muskurahat dikhti hai.",
-"Khuda kare har khushi teri ho, har kadam pe kamyabi teri ho.",
-"Dosti ka rishta sabse pyara hai, tu hi is dil ka sitara hai.",
-"Chand se pyari chandni, chandni se pyari raat, raat se pyari zindagi, aur zindagi se pyari teri dosti.",
-"Aapki dosti ne humein jeena sikhaya, har mod pe saath nibhaya.",
-"Khuda se mangi thi ek dua, mil gayi tum jaisi dost wafa.",
-"Dil se likhi hai baat, hamesha rahe Ritika ji 😍 tera saath.",
-"Teri dosti ka nasha hai, har dard ki yahi dawa hai.",
-"Suraj ki pehli kiran ho tum, mere liye sabse khas ho tum.",
-"Bas tum haste raho, yahi dua hai meri har pal.",
-"Duniya ki har khushi Ritika ji 😍 ke naam ho, tera har din ek naya paigam ho.",
-"Dil ke rishte kabhi toote nahi karte, sachi dost kabhi rootha nahi karte.",
-"Aapki muskurahat sabse haseen hai, aap jaisa koi aur nahi hai.",
-"Zindagi mein aaye ho aise, jaise koi dua qubool hui ho.",
-"Khushboo ki tarah mehko tum sada, dosti ka yahi hai asli maza.",
-"Har pal tumhein yaad karte hain, tumhari dosti pe naaz karte hain.",
-"Ritika ji 😍, tum meri dosti ka maan ho, is dil ki tum hi shaan ho.",
-"Rabb se bas yahi maangte hain, ki tum hamesha salamat raho.",
-"Dosti ka safar yunhi chalta rahe, waqt badle par hum na badlein.",
-"SivaSingh ki taraf se dosti ka uphar ❤️"
-];
+        function createParticles(x, y, color, count = 20) {
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle(
+                    x, y, color, 
+                    Math.random() * 5 + 2, 
+                    (Math.random() - 0.5) * 8, 
+                    (Math.random() - 0.5) * 8
+                ));
+            }
+        }
 
-const grid=document.getElementById("shayariGrid");
-const emojis=["🌟","✨","💎","🌸","🦋","🎈"];
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                p.update();
+                p.draw();
+                if (p.opacity <= 0.01) particles.splice(i, 1);
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
 
-shayaris.forEach(t=>{
-let c=document.createElement("div");
-c.className="card";
-c.innerHTML=`<div class="cover">${emojis[Math.floor(Math.random()*emojis.length)]}</div>
-<div class="content">${t}</div>`;
-c.onclick=e=>{
-c.querySelector(".cover").style.display="none";
-c.querySelector(".content").style.display="block";
-music.play();
-flash();
-heartBlast(e.clientX,e.clientY);
-};
-grid.appendChild(c);
-});
-</script>
+        // Intro Logic
+        function explodeHeart() {
+            const heart = document.querySelector('.heart-3d-container');
+            heart.style.transform = 'scale(0)';
+            createParticles(window.innerWidth/2, window.innerHeight/2, '#ff4d4d', 100);
+            createParticles(window.innerWidth/2, window.innerHeight/2, '#d4af37', 50);
+            document.getElementById('welcome-text').style.opacity = '1';
+            document.getElementById('welcome-text').style.transition = '2s';
+        }
 
+        function startExperience() {
+            bgMusic.play();
+            document.getElementById('intro-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('intro-screen').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                startTypewriter();
+            }, 1000);
+        }
+
+        // Typewriter
+        const texts = [
+            "Tu sirf meri bestie nahi hai…",
+            "Tu meri family jaisi hai 💖",
+            "Har khushi tere naam ho…",
+            "Har smile tere chehre par ✨",
+            "Besties like you are rare…",
+            "And priceless 🥀"
+        ];
+        let textIdx = 0;
+        function startTypewriter() {
+            const box = document.getElementById('typewriter-box');
+            let charIdx = 0;
+            box.innerHTML = "";
+            let currentStr = texts[textIdx];
+            
+            function type() {
+                if (charIdx < currentStr.length) {
+                    box.innerHTML += currentStr.charAt(charIdx);
+                    charIdx++;
+                    setTimeout(type, 100);
+                } else {
+                    setTimeout(() => {
+                        textIdx = (textIdx + 1) % texts.length;
+                        startTypewriter();
+                    }, 2000);
+                }
+            }
+            type();
+        }
+
+        // Video Control
+        videos.forEach(v => {
+            v.addEventListener('play', () => {
+                bgMusic.pause();
+                videos.forEach(other => { if (other !== v) other.pause(); });
+            });
+            v.addEventListener('pause', () => {
+                let anyPlaying = Array.from(videos).some(vid => !vid.paused);
+                if (!anyPlaying) bgMusic.play();
+            });
+            v.parentElement.onclick = () => v.paused ? v.play() : v.pause();
+        });
+
+        // Photo Gallery
+        function nextPhoto() {
+            currentPhoto = (currentPhoto % 10) + 1;
+            photoImg.style.opacity = '0';
+            setTimeout(() => {
+                photoImg.src = `photo${currentPhoto}.jpg`;
+                photoImg.style.opacity = '1';
+                createParticles(photoImg.offsetLeft + 150, photoImg.offsetTop + 200, '#d4af37', 20);
+            }, 500);
+        }
+
+        // SFX Logic
+        function playBrokenSfx(el) {
+            brokenSfx.currentTime = 0;
+            brokenSfx.play();
+            const rect = el.getBoundingClientRect();
+            createParticles(rect.left + rect.width/2, rect.top + rect.height/2, '#ff4d4d', 30);
+        }
+
+        // Cake Logic
+        function blowCandle() {
+            document.getElementById('flame').classList.add('hidden');
+            document.getElementById('cake-slice').style.display = 'block';
+            document.getElementById('blow-btn').innerText = "Cake Cut! 🍰";
+            bgMusic.pause();
+            createParticles(window.innerWidth/2, window.innerHeight/2, '#fff', 50);
+            setTimeout(() => bgMusic.play(), 3000);
+        }
+
+        // Gifts
+        function openGift(el, msg) {
+            el.innerHTML = `<div class="gift-content">${msg}</div>`;
+            el.querySelector('.gift-content').style.display = 'block';
+            createParticles(el.offsetLeft + 50, el.offsetTop + 50, '#d4af37', 20);
+        }
+
+        // Party Mode
+        function startParty() {
+            const overlay = document.getElementById('party-overlay');
+            overlay.style.display = 'block';
+            let interval = setInterval(() => {
+                createParticles(Math.random() * window.innerWidth, Math.random() * window.innerHeight, `hsl(${Math.random()*360}, 70%, 50%)`, 20);
+            }, 200);
+            setTimeout(() => {
+                clearInterval(interval);
+                overlay.style.display = 'none';
+            }, 10000);
+        }
+
+        // Chat
+        setTimeout(() => {
+            document.getElementById('typing-status').innerText = "Offline";
+        }, 8000);
+
+        // Goodbye
+        function showGoodbye() {
+            const screen = document.getElementById('goodbye-screen');
+            screen.style.display = 'flex';
+            screen.style.opacity = '0';
+            let op = 0;
+            let timer = setInterval(() => {
+                if (op >= 1) clearInterval(timer);
+                screen.style.opacity = op;
+                op += 0.1;
+            }, 100);
+            
+            let fadeOut = setInterval(() => {
+                if (bgMusic.volume <= 0.05) {
+                    bgMusic.pause();
+                    clearInterval(fadeOut);
+                } else {
+                    bgMusic.volume -= 0.05;
+                }
+            }, 200);
+        }
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+    </script>
 </body>
-</html>
+                  </html>
