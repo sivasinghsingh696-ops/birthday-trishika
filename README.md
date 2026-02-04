@@ -1,2 +1,2 @@
-# birthday-trishika
-A beautiful birthday surprise website made with love for Trishika 🎂💖
+# Valentine's Day💘
+A beautiful Valentine's Day website made with love for you 🎂💖
